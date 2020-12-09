@@ -39,7 +39,7 @@ namespace Canducci.GeneratePassword
 
         public BCryptValue Hash(string password)
         {
-            byte[] salt = new byte[256 / 8];
+            byte[] salt = new byte[Configuration.SaltBytesRequestLength];
             using (var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(salt);
@@ -88,7 +88,7 @@ namespace Canducci.GeneratePassword
                     salt: salt,
                     prf: Configuration.Prf,
                     iterationCount: Configuration.IterationCount,
-                    numBytesRequested: 512 / 8
+                    numBytesRequested: Configuration.NumBytesRequestedLength
                 )
             );
         }

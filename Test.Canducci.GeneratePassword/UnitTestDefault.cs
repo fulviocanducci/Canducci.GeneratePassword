@@ -179,5 +179,15 @@ namespace Test.Canducci.GeneratePassword
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
         }
+
+        [Test]
+        public void TestBCryptConstructorReturnValueWithHMACSHA512AndInterationCountDescribeValueSaltAndHashedLength()
+        {
+            string password = "@a$bcdef#";
+            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2000, 64, 128);
+            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptValue bCryptValue = bCrypt.Hash(password);
+            Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
+        }
     }
 }
