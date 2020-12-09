@@ -44,6 +44,16 @@ namespace Test.Canducci.GeneratePassword
         }
 
         [Test]
+        public void TestBCryptConfigurationConstructor512SaltAndHashed()
+        {
+            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2, 1, 1);
+            Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA512);
+            Assert.AreEqual(configuration.IterationCount, 2);
+            Assert.AreEqual(configuration.SaltBytesLength, 1);
+            Assert.AreEqual(configuration.NumBytesRequestedLength, 1);
+        }
+
+        [Test]
         public void TestBCryptInstance()
         {
             BCrypt bCrypt = new BCrypt();            
@@ -188,6 +198,9 @@ namespace Test.Canducci.GeneratePassword
             BCrypt bCrypt = new BCrypt(configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
+            Assert.AreEqual(2000, configuration.IterationCount);
+            Assert.AreEqual(64, configuration.SaltBytesLength);
+            Assert.AreEqual(128, configuration.NumBytesRequestedLength);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Canducci.GeneratePassword
         {
             Prf = KeyDerivationPrf.HMACSHA1;
             IterationCount = 10000;
-            SaltBytesRequestLength = 100;
+            SaltBytesLength = 100;
             NumBytesRequestedLength = 100;
         }
 
@@ -27,7 +27,7 @@ namespace Canducci.GeneratePassword
         {
             Prf = prf;
             IterationCount = 10000;
-            SaltBytesRequestLength = 100;
+            SaltBytesLength = 100;
             NumBytesRequestedLength = 100;
         }
 
@@ -40,7 +40,7 @@ namespace Canducci.GeneratePassword
         {
             Prf = prf;
             IterationCount = iterationCount;
-            SaltBytesRequestLength = 100;
+            SaltBytesLength = 100;
             NumBytesRequestedLength = 100;
         }
 
@@ -49,13 +49,13 @@ namespace Canducci.GeneratePassword
         /// </summary>
         /// <param name="prf">KeyDerivationPrf</param>
         /// <param name="iterationCount">iterationCount</param>
-        /// <param name="saltBytesRequestLength">saltBytesRequestLength</param>
+        /// <param name="saltBytesLength">saltBytesRequestLength</param>
         /// <param name="numBytesRequestedLength">numBytesRequestedLength</param>        
-        public BCryptConfiguration(KeyDerivationPrf prf, int iterationCount, int saltBytesRequestLength, int numBytesRequestedLength)
+        public BCryptConfiguration(KeyDerivationPrf prf, int iterationCount, int saltBytesLength, int numBytesRequestedLength)
         {
             Prf = prf;
             IterationCount = iterationCount;
-            SaltBytesRequestLength = saltBytesRequestLength;
+            SaltBytesLength = saltBytesLength;
             NumBytesRequestedLength = numBytesRequestedLength;
         }
 
@@ -72,7 +72,7 @@ namespace Canducci.GeneratePassword
         /// <summary>
         /// SaltLength
         /// </summary>
-        public int SaltBytesRequestLength { get; }
+        public int SaltBytesLength { get; }
 
         /// <summary>
         /// NumBytesRequestedLength
