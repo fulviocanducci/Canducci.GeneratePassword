@@ -193,14 +193,18 @@ namespace Test.Canducci.GeneratePassword
         [Test]
         public void TestBCryptConstructorReturnValueWithHMACSHA512AndInterationCountDescribeValueSaltAndHashedLength()
         {
+            const int length = 75;
             string password = "@a$bcdef#";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2000, 64, 128);
+            BCryptConfiguration configuration = 
+                new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2000, length, length);
             BCrypt bCrypt = new BCrypt(configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
             Assert.AreEqual(2000, configuration.IterationCount);
-            Assert.AreEqual(64, configuration.SaltBytesLength);
-            Assert.AreEqual(128, configuration.NumBytesRequestedLength);
+            Assert.AreEqual(length, configuration.SaltBytesLength);
+            Assert.AreEqual(length, configuration.NumBytesRequestedLength);
+            Assert.AreEqual(bCryptValue.Salt.Length, 100);
+            Assert.AreEqual(bCryptValue.Hashed.Length, 100);
         }
     }
 }

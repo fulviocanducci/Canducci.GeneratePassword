@@ -14,8 +14,8 @@ namespace Canducci.GeneratePassword
         {
             Prf = KeyDerivationPrf.HMACSHA1;
             IterationCount = 10000;
-            SaltBytesLength = 100;
-            NumBytesRequestedLength = 100;
+            SaltBytesLength = 75;
+            NumBytesRequestedLength = 75;
         }
 
         /// <summary>
@@ -27,8 +27,8 @@ namespace Canducci.GeneratePassword
         {
             Prf = prf;
             IterationCount = 10000;
-            SaltBytesLength = 100;
-            NumBytesRequestedLength = 100;
+            SaltBytesLength = 75;
+            NumBytesRequestedLength = 75;
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace Canducci.GeneratePassword
         {
             Prf = prf;
             IterationCount = iterationCount;
-            SaltBytesLength = 100;
-            NumBytesRequestedLength = 100;
+            SaltBytesLength = 75;
+            NumBytesRequestedLength = 75;
         }
 
         /// <summary>

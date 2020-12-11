@@ -1,0 +1,7 @@
+﻿Rebuild started...
+1>------ Rebuild All started: Project: Canducci.GeneratePassword, Configuration: Release Any CPU ------
+1>Canducci.GeneratePassword -> C:\Users\Developer\source\repos\Canducci.GeneratePassword\Canducci.GeneratePassword\bin\Release\netstandard2.0\Canducci.GeneratePassword.dll
+1>Successfully created package 'C:\Users\Developer\source\repos\Canducci.GeneratePassword\Canducci.GeneratePassword\bin\Release\Canducci.GeneratePassword.1.0.2.nupkg'.
+2>------ Rebuild All started: Project: Test.Canducci.GeneratePassword, Configuration: Release Any CPU ------
+2>Test.Canducci.GeneratePassword -> C:\Users\Developer\source\repos\Canducci.GeneratePassword\Test.Canducci.GeneratePassword\bin\Release\netcoreapp3.1\Test.Canducci.GeneratePassword.dll
+========== Rebuild All: 2 succeeded, 0 failed, 0 skipped ==========
