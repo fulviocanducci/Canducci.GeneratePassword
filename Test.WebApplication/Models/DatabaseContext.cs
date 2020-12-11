@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Test.WebApplication.Commands.PeopleCommand;
 
 namespace Test.WebApplication.Models
 {
@@ -14,5 +15,7 @@ namespace Test.WebApplication.Models
         {
             optionsBuilder.UseSqlite("Data Source=Database.db");
         }
+
+        public DbSet<Test.WebApplication.Commands.PeopleCommand.PeopleChangePasswordGetByIdCommand> PeopleChangePasswordGetByIdCommand { get; set; }
     }
 }

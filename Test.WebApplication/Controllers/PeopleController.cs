@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Test.WebApplication.Commands.PeopleCommand;
+using Test.WebApplication.Models;
 
 namespace Test.WebApplication.Controllers
 {
@@ -18,6 +19,39 @@ namespace Test.WebApplication.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await Mediator.Send(new PeopleListCommand()));
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> ChangePassword(int id)
+        {
+            if (TempData.TryGetValue("ChangePassword", out object value))
+            {
+                ViewData["ChangePassword"] = value;
+            } 
+            else
+            {
+                ViewData["ChangePassword"] = null;
+            }
+            People people = await Mediator.Send(new PeopleGetByIdCommand(id));
+            PeopleChangePasswordGetByIdCommand command =
+                new PeopleChangePasswordGetByIdCommand()
+                {
+                    Id = people.Id,
+                    Name = people.Name,
+                    Password = string.Empty,
+                    NewPassord = string.Empty                
+                };
+            return View(command);
+        }
+
+        [HttpPost()]
+        public async Task<IActionResult> ChangePassword(PeopleChangePasswordGetByIdCommand command)
+        {
+            if (ModelState.IsValid)
+            {
+                TempData["ChangePassword"] = await Mediator.Send(command);
+            }
+            return RedirectToAction("ChangePassword", new { command.Id });
         }
 
         public async Task<IActionResult> Details(int? id)
