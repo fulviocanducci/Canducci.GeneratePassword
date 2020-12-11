@@ -1,4 +1,4 @@
-using Canducci.GeneratePassword;
+using Canducci.GeneratePassword.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -27,7 +27,13 @@ namespace Test.WebApplication
         {
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddDbContext<DatabaseContext>();
-            services.AddScoped<BCrypt>();
+            services.AddGeneratePassword(config=>
+            {
+                config.Prf = Microsoft.AspNetCore.Cryptography.KeyDerivation.KeyDerivationPrf.HMACSHA512;
+                config.IterationCount = 500;
+                config.NumBytesRequestedLength = 10;
+                config.SaltBytesLength = 10;
+            });
             services.Configure<RouteOptions>(options =>
             {
                 options.LowercaseUrls = true;

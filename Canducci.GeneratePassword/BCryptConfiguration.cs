@@ -12,7 +12,7 @@ namespace Canducci.GeneratePassword
         /// </summary>
         public BCryptConfiguration()
         {
-            Prf = KeyDerivationPrf.HMACSHA1;
+            Prf = KeyDerivationPrf.HMACSHA512;
             IterationCount = 10000;
             SaltBytesLength = 75;
             NumBytesRequestedLength = 75;
@@ -62,21 +62,21 @@ namespace Canducci.GeneratePassword
         /// <summary>
         /// KeyDerivationPrf
         /// </summary>
-        public KeyDerivationPrf Prf { get; }
+        public KeyDerivationPrf Prf { get; set; }
 
         /// <summary>
         /// IterationCount
         /// </summary>
-        public int IterationCount { get; }
+        public int IterationCount { get; set; }
 
         /// <summary>
         /// SaltLength
         /// </summary>
-        public int SaltBytesLength { get; }
+        public int SaltBytesLength { get; set; }
 
         /// <summary>
         /// NumBytesRequestedLength
         /// </summary>
-        public int NumBytesRequestedLength { get; }
+        public int NumBytesRequestedLength { get; set; }
     }
 }

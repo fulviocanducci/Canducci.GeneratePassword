@@ -24,14 +24,9 @@ namespace Test.WebApplication.Controllers
         [HttpGet()]
         public async Task<IActionResult> ChangePassword(int id)
         {
-            if (TempData.TryGetValue("ChangePassword", out object value))
-            {
-                ViewData["ChangePassword"] = value;
-            } 
-            else
-            {
-                ViewData["ChangePassword"] = null;
-            }
+            TempData.TryGetValue("ChangePassword", out object value);
+            ViewData["ChangePassword"] = value;
+
             People people = await Mediator.Send(new PeopleGetByIdCommand(id));
             PeopleChangePasswordGetByIdCommand command =
                 new PeopleChangePasswordGetByIdCommand()
@@ -39,8 +34,9 @@ namespace Test.WebApplication.Controllers
                     Id = people.Id,
                     Name = people.Name,
                     Password = string.Empty,
-                    NewPassord = string.Empty                
+                    NewPassord = string.Empty
                 };
+            
             return View(command);
         }
 
@@ -51,6 +47,7 @@ namespace Test.WebApplication.Controllers
             {
                 TempData["ChangePassword"] = await Mediator.Send(command);
             }
+            
             return RedirectToAction("ChangePassword", new { command.Id });
         }
 

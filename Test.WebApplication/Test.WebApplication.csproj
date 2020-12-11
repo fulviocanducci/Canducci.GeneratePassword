@@ -15,12 +15,12 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    </PackageReference>    
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Canducci.GeneratePassword\Canducci.GeneratePassword.csproj" />
+    <ProjectReference Include="..\Canducci.GeneratePassword.Extensions.DependencyInjection\Canducci.GeneratePassword.Extensions.DependencyInjection.csproj" />
   </ItemGroup>
 
 </Project>

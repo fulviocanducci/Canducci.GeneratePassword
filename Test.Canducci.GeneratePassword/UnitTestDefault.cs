@@ -23,7 +23,7 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConfigurationDefault()
         {
             BCryptConfiguration configuration = new BCryptConfiguration();
-            Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA1);
+            Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA512);
             Assert.AreEqual(configuration.IterationCount, 10000);
         }
 
@@ -56,7 +56,7 @@ namespace Test.Canducci.GeneratePassword
         [Test]
         public void TestBCryptInstance()
         {
-            BCrypt bCrypt = new BCrypt();            
+            BCrypt bCrypt = new BCrypt(new BCryptConfiguration());            
             Assert.IsInstanceOf<BCrypt>(bCrypt);
         }
 

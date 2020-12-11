@@ -13,15 +13,7 @@ namespace Canducci.GeneratePassword
         /// class BCryptConfiguration
         /// </summary>
         private BCryptConfiguration Configuration { get; }
-
-        /// <summary>
-        /// constructor BCrypt
-        /// </summary>
-        public BCrypt()
-        {
-            Configuration = new BCryptConfiguration();
-        }
-
+        
         /// <summary>
         /// constructor BCrypt
         /// </summary>
