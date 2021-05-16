@@ -3,7 +3,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Canducci.GeneratePassword.svg?style=plastic&label=version)](https://www.nuget.org/packages/Canducci.GeneratePassword/)
 [![NuGet](https://img.shields.io/nuget/dt/Canducci.GeneratePassword.svg)](https://www.nuget.org/packages/Canducci.GeneratePassword/)
-[![.NET Core](https://github.com/fulviocanducci/Canducci.GeneratePassword/workflows/.NET%20Core/badge.svg)](https://www.nuget.org/packages/Canducci.GeneratePassword/)
+[![.NET Core](https://github.com/fulviocanducci/Canducci.GeneratePassword/workflows/.NET%20Core/badge.svg)](https://www.nuget.org/packages/Canducci.GeneratePassword/) [![Coverage Status](https://coveralls.io/repos/github/fulviocanducci/Canducci.GeneratePassword/badge.svg?branch=master)](https://coveralls.io/github/fulviocanducci/Canducci.GeneratePassword?branch=master)
 
 [![NuGet](https://img.shields.io/nuget/v/Canducci.GeneratePassword.Extensions.DependencyInjection.svg?style=plastic&label=version)](https://www.nuget.org/packages/Canducci.GeneratePassword.Extensions.DependencyInjection/)
 [![NuGet](https://img.shields.io/nuget/dt/Canducci.GeneratePassword.Extensions.DependencyInjection.svg)](https://www.nuget.org/packages/Canducci.GeneratePassword.Extensions.DependencyInjection/)
