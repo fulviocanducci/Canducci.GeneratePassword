@@ -15,14 +15,14 @@ namespace Test.Canducci.GeneratePassword
         [Test]
         public void TestBCryptConfigurationInstance()
         {
-            BCryptConfiguration configuration = new BCryptConfiguration();
+            BCryptConfiguration configuration = new();
             Assert.IsInstanceOf<BCryptConfiguration>(configuration);
         }
 
         [Test]
         public void TestBCryptConfigurationDefault()
         {
-            BCryptConfiguration configuration = new BCryptConfiguration();
+            BCryptConfiguration configuration = new ();
             Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA512);
             Assert.AreEqual(configuration.IterationCount, 10000);
         }
@@ -30,7 +30,7 @@ namespace Test.Canducci.GeneratePassword
         [Test]
         public void TestBCryptConfigurationConstructor256()
         {
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA256, 1);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA256, 1);
             Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA256);
             Assert.AreEqual(configuration.IterationCount, 1);
         }
@@ -38,7 +38,7 @@ namespace Test.Canducci.GeneratePassword
         [Test]
         public void TestBCryptConfigurationConstructor512()
         {
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA512, 2);
             Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA512);
             Assert.AreEqual(configuration.IterationCount, 2);
         }
@@ -46,7 +46,7 @@ namespace Test.Canducci.GeneratePassword
         [Test]
         public void TestBCryptConfigurationConstructor512SaltAndHashed()
         {
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2, 1, 1);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA512, 2, 1, 1);
             Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA512);
             Assert.AreEqual(configuration.IterationCount, 2);
             Assert.AreEqual(configuration.SaltBytesLength, 1);
@@ -56,7 +56,7 @@ namespace Test.Canducci.GeneratePassword
         [Test]
         public void TestBCryptInstance()
         {
-            BCrypt bCrypt = new BCrypt(new BCryptConfiguration());            
+            BCrypt bCrypt = new (new BCryptConfiguration());            
             Assert.IsInstanceOf<BCrypt>(bCrypt);
         }
 
@@ -64,8 +64,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValue()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration();
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new ();
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue));            
         }
@@ -74,8 +74,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA1()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA1);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA1);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue));
         }
@@ -84,8 +84,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA256()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA256);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA256);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue));
         }
@@ -94,8 +94,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA512()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA512);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue));
         }
@@ -104,8 +104,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA1AndInterationCount()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA1, 2000);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA1, 2000);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue));
         }
@@ -114,8 +114,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA256AndInterationCount()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA256, 2000);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA256, 2000);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue));
         }
@@ -124,8 +124,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA512AndInterationCount()
         {
             string password = "@a$bcdef#";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2000);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA512, 2000);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue));
         }
@@ -134,8 +134,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA1DescribeValue()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA1);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA1);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
         }
@@ -144,8 +144,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA256DescribeValue()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA256);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA256);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
         }
@@ -154,8 +154,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA512DescribeValue()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA512);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
         }
@@ -164,8 +164,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA1AndInterationCountDescribeValue()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA1, 2000);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA1, 2000);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
         }
@@ -174,8 +174,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA256AndInterationCountDescribeValue()
         {
             string password = "abcdef";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA256, 2000);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA256, 2000);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
         }
@@ -184,8 +184,8 @@ namespace Test.Canducci.GeneratePassword
         public void TestBCryptConstructorReturnValueWithHMACSHA512AndInterationCountDescribeValue()
         {
             string password = "@a$bcdef#";
-            BCryptConfiguration configuration = new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2000);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA512, 2000);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
         }
@@ -195,9 +195,8 @@ namespace Test.Canducci.GeneratePassword
         {
             const int length = 75;
             string password = "@a$bcdef#";
-            BCryptConfiguration configuration = 
-                new BCryptConfiguration(KeyDerivationPrf.HMACSHA512, 2000, length, length);
-            BCrypt bCrypt = new BCrypt(configuration);
+            BCryptConfiguration configuration = new (KeyDerivationPrf.HMACSHA512, 2000, length, length);
+            BCrypt bCrypt = new (configuration);
             BCryptValue bCryptValue = bCrypt.Hash(password);
             Assert.IsTrue(bCrypt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed));
             Assert.AreEqual(2000, configuration.IterationCount);
