@@ -20,6 +20,18 @@ or Web Project Core
 PM> Install-Package Canducci.GeneratePassword.Extensions.DependencyInjection
 ```
 
+or Argon2id package:
+
+```Csharp
+PM> Install-Package Canducci.GeneratePassword.Argon2id
+```
+
+or Argon2id Web Project Core:
+
+```Csharp
+PM> Install-Package Canducci.GeneratePassword.Argon2id.Extensions.DependencyInjection
+```
+
 ### How to use?
 
 Declare o namespace `using Canducci.GeneratePassword;` and right after declaring a variable with the class `Pbkdf2PasswordHasher`, example:
