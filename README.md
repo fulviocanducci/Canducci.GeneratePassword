@@ -95,6 +95,56 @@ IPbkdf2Value value = hasher.Hash("abc@#$%12");
 bool valid = hasher.Valid("abc@#$%12", value);
 ```
 
+## Migracao PBKDF2 -> Argon2id
+
+Estratégia recomendada: migracao progressiva no login (sem reset de senha em massa).
+
+Fluxo:
+
+1. Tente validar primeiro com Argon2id.
+2. Se falhar, tente validar com PBKDF2 legado.
+3. Se PBKDF2 validar, gere novo hash Argon2id e atualize no banco.
+4. Marque o registro como Argon2id (ou salve no formato encoded com prefixo de algoritmo).
+
+Exemplo:
+
+```csharp
+using Canducci.GeneratePassword;
+using Canducci.GeneratePassword.Argon2id;
+
+public bool ValidateAndRehash(
+    string password,
+    string algorithm,           // "argon2id" ou "pbkdf2"
+    string salt,
+    string hash,
+    Action<string, string, string> updatePassword) // (algorithm, salt, hash)
+{
+    IArgon2idPasswordHasher argon = new Argon2idPasswordHasher(new Argon2idConfiguration());
+    IPbkdf2PasswordHasher pbkdf2 = new Pbkdf2PasswordHasher(new Pbkdf2Configuration());
+
+    if (algorithm == "argon2id")
+    {
+        return argon.Valid(password, salt, hash);
+    }
+
+    if (algorithm == "pbkdf2")
+    {
+        bool validLegacy = pbkdf2.Valid(password, salt, hash);
+        if (!validLegacy)
+        {
+            return false;
+        }
+
+        // Rehash automatico para Argon2id apos login valido
+        IArgon2idValue newValue = argon.Hash(password);
+        updatePassword("argon2id", newValue.Salt, newValue.Hashed);
+        return true;
+    }
+
+    return false;
+}
+```
+
 ## Compatibilidade legada
 
 `BCrypt`, `BCryptConfiguration`, `BCryptValue` e `AddGeneratePassword` continuam disponiveis somente por compatibilidade e estao marcados como `Obsolete`.
