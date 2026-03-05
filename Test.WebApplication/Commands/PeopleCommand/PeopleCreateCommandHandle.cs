@@ -9,9 +9,9 @@ namespace Test.WebApplication.Commands.PeopleCommand
     public class PeopleCreateCommandHandle : IRequestHandler<PeopleCreateCommand, People>
     {
         public DatabaseContext Database { get; }
-        public BCrypt Crypt { get; }
+        public IPbkdf2PasswordHasher Crypt { get; }
 
-        public PeopleCreateCommandHandle(DatabaseContext database, BCrypt crypt)
+        public PeopleCreateCommandHandle(DatabaseContext database, IPbkdf2PasswordHasher crypt)
         {
             Database = database;
             Crypt = crypt;

@@ -22,15 +22,19 @@ PM> Install-Package Canducci.GeneratePassword.Extensions.DependencyInjection
 
 ### How to use?
 
-Declare o namespace `using Canducci.GeneratePassword;` and right after declaring a variable with the class `BCrypt`, example:
+Declare o namespace `using Canducci.GeneratePassword;` and right after declaring a variable with the class `Pbkdf2PasswordHasher`, example:
 
 __Generate the encrypted `password` and `salt`:__
 
 ```csharp
 string password = "abc@#$%12";
-BCryptConfiguration config = new BCryptConfiguration();
-BCrypt crypt = new BCrypt(config);
-BCryptValue cryptValue = bCrypt.Hash(password);
+Pbkdf2Configuration config = new Pbkdf2Configuration();
+IPbkdf2PasswordHasher crypt = new Pbkdf2PasswordHasher(config);
+IPbkdf2Value cryptValue = crypt.Hash(password);
+
+// formato versionado para armazenamento:
+// pbkdf2-v1$prf$iterations$numBytes$salt$hash
+string encoded = crypt.HashEncoded(password);
 ```
 
 
@@ -38,12 +42,14 @@ __Test the password__
 
 ```csharp
 string password = "abc@#$%12";
-BCryptConfiguration config = new BCryptConfiguration();
-BCrypt crypt = new BCrypt(config);
-BCryptValue cryptValue = bCrypt.Hash(password);
-bool valid = crpt.Valid(password, bCryptValue); 
+Pbkdf2Configuration config = new Pbkdf2Configuration();
+IPbkdf2PasswordHasher crypt = new Pbkdf2PasswordHasher(config);
+IPbkdf2Value cryptValue = crypt.Hash(password);
+bool valid = crypt.Valid(password, cryptValue); 
 // ou
-//bool valid = crpt.Valid(password, bCryptValue.Salt, bCryptValue.Hashed); 
+//bool valid = crypt.Valid(password, cryptValue.Salt, cryptValue.Hashed); 
+// ou
+//bool valid = crypt.ValidEncoded(password, encoded);
 ```
 
 
@@ -53,17 +59,21 @@ bool valid = crpt.Valid(password, bCryptValue);
 
 Configure o method `ConfigureServices` with
 
-    services.AddGeneratePassword();
+    services.AddPbkdf2PasswordHasher();
 
 In the constructor
 
 ```csharp
 public class HomeController
 {
-    private readonly BCrypt _crypt;
-    public HomeController(BCrypt crypt)
+    private readonly IPbkdf2PasswordHasher _crypt;
+    public HomeController(IPbkdf2PasswordHasher crypt)
     {
         _crypt = crypt;
     }
 }
 ```
+
+### Legacy Compatibility
+
+`BCrypt`, `BCryptConfiguration`, `BCryptValue` e `AddGeneratePassword` continuam disponíveis somente por compatibilidade e foram marcados como `Obsolete`.

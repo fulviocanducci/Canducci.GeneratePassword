@@ -1,4 +1,5 @@
 using Canducci.GeneratePassword.Extensions.DependencyInjection;
+using Canducci.GeneratePassword;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -27,12 +28,12 @@ namespace Test.WebApplication
         {
             services.AddMediatR(typeof(Startup).Assembly);
             services.AddDbContext<DatabaseContext>();
-            services.AddGeneratePassword(config=>
+            services.AddPbkdf2PasswordHasher(config =>
             {
                 config.Prf = Microsoft.AspNetCore.Cryptography.KeyDerivation.KeyDerivationPrf.HMACSHA512;
-                config.IterationCount = 500;
-                config.NumBytesRequestedLength = 10;
-                config.SaltBytesLength = 10;
+                config.IterationCount = Pbkdf2Configuration.DefaultIterationCount;
+                config.NumBytesRequestedLength = Pbkdf2Configuration.DefaultNumBytesRequestedLength;
+                config.SaltBytesLength = Pbkdf2Configuration.DefaultSaltBytesLength;
             });
             services.Configure<RouteOptions>(options =>
             {

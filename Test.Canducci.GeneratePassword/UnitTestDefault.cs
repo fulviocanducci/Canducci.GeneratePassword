@@ -24,7 +24,7 @@ namespace Test.Canducci.GeneratePassword
         {
             BCryptConfiguration configuration = new BCryptConfiguration();
             Assert.AreEqual(configuration.Prf, KeyDerivationPrf.HMACSHA512);
-            Assert.AreEqual(configuration.IterationCount, 10000);
+            Assert.AreEqual(configuration.IterationCount, Pbkdf2Configuration.DefaultIterationCount);
         }
 
         [Test]
@@ -205,6 +205,61 @@ namespace Test.Canducci.GeneratePassword
             Assert.AreEqual(length, configuration.NumBytesRequestedLength);
             Assert.AreEqual(bCryptValue.Salt.Length, 100);
             Assert.AreEqual(bCryptValue.Hashed.Length, 100);
+        }
+
+        [Test]
+        public void TestPbkdf2ConfigurationInstance()
+        {
+            Pbkdf2Configuration configuration = new Pbkdf2Configuration();
+            Assert.IsInstanceOf<Pbkdf2Configuration>(configuration);
+        }
+
+        [Test]
+        public void TestPbkdf2ConfigurationDefault()
+        {
+            Pbkdf2Configuration configuration = new Pbkdf2Configuration();
+            Assert.AreEqual(KeyDerivationPrf.HMACSHA512, configuration.Prf);
+            Assert.AreEqual(Pbkdf2Configuration.DefaultIterationCount, configuration.IterationCount);
+            Assert.AreEqual(Pbkdf2Configuration.DefaultSaltBytesLength, configuration.SaltBytesLength);
+            Assert.AreEqual(Pbkdf2Configuration.DefaultNumBytesRequestedLength, configuration.NumBytesRequestedLength);
+        }
+
+        [Test]
+        public void TestPbkdf2HasherReturnValue()
+        {
+            string password = "abcdef";
+            IPbkdf2PasswordHasher hasher = new Pbkdf2PasswordHasher(new Pbkdf2Configuration());
+            IPbkdf2Value value = hasher.Hash(password);
+            Assert.IsTrue(hasher.Valid(password, value));
+        }
+
+        [Test]
+        public void TestPbkdf2HasherEncodedRoundTrip()
+        {
+            string password = "abc@123";
+            IPbkdf2PasswordHasher hasher = new Pbkdf2PasswordHasher(new Pbkdf2Configuration());
+            string encoded = hasher.HashEncoded(password);
+            Assert.IsTrue(hasher.ValidEncoded(password, encoded));
+        }
+
+        [Test]
+        public void TestPbkdf2HasherValidBase64InvalidReturnsFalse()
+        {
+            IPbkdf2PasswordHasher hasher = new Pbkdf2PasswordHasher(new Pbkdf2Configuration());
+            Assert.IsFalse(hasher.Valid("x", "invalid-base64", "invalid-base64"));
+        }
+
+        [Test]
+        public void TestPbkdf2HasherNullConfigurationThrows()
+        {
+            Assert.Throws<System.ArgumentNullException>(() => new Pbkdf2PasswordHasher(null));
+        }
+
+        [Test]
+        public void TestPbkdf2HasherEmptyPasswordThrows()
+        {
+            IPbkdf2PasswordHasher hasher = new Pbkdf2PasswordHasher(new Pbkdf2Configuration());
+            Assert.Throws<System.ArgumentException>(() => hasher.Hash(string.Empty));
         }
     }
 }
