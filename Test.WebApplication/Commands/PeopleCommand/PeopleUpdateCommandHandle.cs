@@ -9,9 +9,9 @@ namespace Test.WebApplication.Commands.PeopleCommand
     public class PeopleUpdateCommandHandle : IRequestHandler<PeopleUpdateCommand, bool>
     {
         public DatabaseContext Database { get; }
-        public BCrypt Crypt { get; }
+        public IPbkdf2PasswordHasher Crypt { get; }
 
-        public PeopleUpdateCommandHandle(DatabaseContext database, BCrypt crypt)
+        public PeopleUpdateCommandHandle(DatabaseContext database, IPbkdf2PasswordHasher crypt)
         {
             Database = database;
             Crypt = crypt;

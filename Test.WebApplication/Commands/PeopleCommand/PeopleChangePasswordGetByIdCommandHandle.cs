@@ -9,9 +9,9 @@ namespace Test.WebApplication.Commands.PeopleCommand
     public class PeopleChangePasswordGetByIdCommandHandle : IRequestHandler<PeopleChangePasswordGetByIdCommand, bool>
     {
         public DatabaseContext Database { get; }
-        public BCrypt Crypt { get; }
+        public IPbkdf2PasswordHasher Crypt { get; }
 
-        public PeopleChangePasswordGetByIdCommandHandle(DatabaseContext database, BCrypt crypt)
+        public PeopleChangePasswordGetByIdCommandHandle(DatabaseContext database, IPbkdf2PasswordHasher crypt)
         {
             Database = database;
             Crypt = crypt;
