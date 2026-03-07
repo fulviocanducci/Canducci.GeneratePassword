@@ -2,7 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Canducci.GeneratePassword.svg?style=plastic&label=version)](https://www.nuget.org/packages/Canducci.GeneratePassword/)
 [![NuGet](https://img.shields.io/nuget/dt/Canducci.GeneratePassword.svg)](https://www.nuget.org/packages/Canducci.GeneratePassword/)
-[![.NET Core](https://github.com/fulviocanducci/Canducci.GeneratePassword/workflows/.NET%20Core/badge.svg)](https://www.nuget.org/packages/Canducci.GeneratePassword/)
+[![Run Unit Tests](https://github.com/fulviocanducci/Canducci.GeneratePassword/actions/workflows/test.yml/badge.svg)](https://github.com/fulviocanducci/Canducci.GeneratePassword/actions/workflows/test.yml)
 [![Coverage Status](https://coveralls.io/repos/github/fulviocanducci/Canducci.GeneratePassword/badge.svg?branch=master)](https://coveralls.io/github/fulviocanducci/Canducci.GeneratePassword?branch=master)
 
 Biblioteca para hash de senha com dois conjuntos separados:
